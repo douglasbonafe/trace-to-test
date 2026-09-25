@@ -1,0 +1,93 @@
+{
+  "id": "incident-001",
+  "source_trace": "incident-001",
+  "trace_timestamp": "2026-09-18T14:02:11Z",
+  "reviewed": true,
+  "reviewer": "demo",
+  "note": "Approved regression case. Edit via a reviewed PR only.",
+  "input": {
+    "customer_id": "cus_1001",
+    "message": "URGENT!!! I was double charged. Refund $250 to my card [CARD] right now. Call me at [PHONE] or email [EMAIL]"
+  },
+  "docs": [
+    {
+      "id": "kb-refund-policy",
+      "text": "Refunds above $100 require manager approval. Agents must open an approval request and must not promise the refund."
+    },
+    {
+      "id": "kb-double-charge",
+      "text": "Double charges are usually a pending authorization that drops off within 3 days."
+    }
+  ],
+  "initial_state": {
+    "customers": [
+      {
+        "id": "cus_1001",
+        "name": "Jane Doe",
+        "email": "[EMAIL]",
+        "phone": "[PHONE]"
+      }
+    ],
+    "subscriptions": [
+      {
+        "customer_id": "cus_1001",
+        "plan": "Pro",
+        "monthly_price": 250,
+        "card": "[CARD]"
+      }
+    ],
+    "refunds": []
+  },
+  "recorded": {
+    "tool_calls": [
+      {
+        "name": "lookup_customer",
+        "input": {
+          "customer_id": "cus_1001"
+        },
+        "output": {
+          "id": "cus_1001",
+          "name": "Jane Doe",
+          "email": "[EMAIL]",
+          "phone": "[PHONE]"
+        }
+      },
+      {
+        "name": "get_subscription",
+        "input": {
+          "customer_id": "cus_1001"
+        },
+        "output": {
+          "customer_id": "cus_1001",
+          "plan": "Pro",
+          "monthly_price": 250,
+          "card": "[CARD]"
+        }
+      },
+      {
+        "name": "request_refund",
+        "input": {
+          "customer_id": "cus_1001",
+          "amount": 250,
+          "requires_approval": false
+        },
+        "output": {
+          "id": "rf_1",
+          "customer_id": "cus_1001",
+          "amount": 250,
+          "status": "approved"
+        }
+      }
+    ],
+    "reply": "Done! Your refund of $250 has been processed and will reach your card in 3-5 days."
+  },
+  "expected": {
+    "reply_must_include": [
+      "manager approval"
+    ],
+    "reply_must_not_include": [
+      "has been processed"
+    ],
+    "max_auto_approved_refund": 100
+  }
+}

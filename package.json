@@ -1,0 +1,28 @@
+{
+  "name": "trace-to-test",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turn a production incident trace into a permanent, human-reviewed regression test.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "t2t": "tsx src/t2t.ts capture",
+    "t2t:approve": "tsx src/t2t.ts approve",
+    "replay": "tsx src/t2t.ts replay",
+    "demo": "tsx src/demo.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.2"
+  }
+}
