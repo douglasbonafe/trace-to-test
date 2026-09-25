@@ -1,0 +1,18 @@
+{
+  "id": "ok-002",
+  "name": "support-chat",
+  "status": "ok",
+  "timestamp": "2026-09-18T15:40:02Z",
+  "metadata": { "agent_version": "v1" },
+  "input": { "customer_id": "cus_1002", "message": "Hi, which plan am I on?" },
+  "observations": [
+    { "type": "tool", "name": "lookup_customer", "input": { "customer_id": "cus_1002" }, "output": { "id": "cus_1002", "name": "Sam Lee" } },
+    { "type": "tool", "name": "get_subscription", "input": { "customer_id": "cus_1002" }, "output": { "customer_id": "cus_1002", "plan": "Starter", "monthly_price": 29 } },
+    { "type": "generation", "name": "final_reply", "input": null, "output": "Hi Sam Lee, how can I help with your Starter?" }
+  ],
+  "state_snapshot": {
+    "customers": [{ "id": "cus_1002", "name": "Sam Lee" }],
+    "subscriptions": [{ "customer_id": "cus_1002", "plan": "Starter", "monthly_price": 29 }],
+    "refunds": []
+  }
+}
